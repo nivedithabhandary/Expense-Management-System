@@ -1,0 +1,27 @@
+To run MySQL in Docker Container:
+docker run --name mysqlserver -e MYSQL_ROOT_PASSWORD=p@ssw0rd123 -d mysql
+
+To run application in docker container:
+docker run -p 5000:5000 --link mysqlserver:mysqlserver web4 python app/app.py
+
+In model.py
+HOSTNAME = mysqlserver
+PASSWORD = p@ssw0rd123
+
+In Dockerfile
+EXPOSE 5000 3306
+
+General docker commands:
+1. Remove container - docker stop <container_id>
+                      docker rm <container_id>
+   Remove all containers - # docker stop $(docker ps -a -q)
+                           # docker rm $(docker ps -a -q)
+
+2. Remove image - docker rmi <image_id>
+3. Check images - docker images
+4. Check running containers - docker ps -a
+
+
+
+docker run -d -p 5000:5000 assign3 python router.py
+docker run -d -p 5000:5001 --link mysqlserver:mysqlserver assign3 python app/app.py
